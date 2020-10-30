@@ -12,19 +12,32 @@ namespace ExcelToJSON
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-
-            //replace with you source file
-            string path = @"C:\Users\jawad\Desktop\SPORTCRED.xlsx";
-            FileInfo fileInfo = new FileInfo(path);
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            ExcelPackage package = new ExcelPackage(fileInfo);
-            List<Game> games = new List<Game>();
+            //replace with you source files
+            string infoPath = @"C:\Users\jawad\Desktop\SPORTCRED.xlsx";
+            string logosPath = @"C:\Users\jawad\Desktop\Logos.xlsx";
 
-            for (int round = 0; round < package.Workbook.Worksheets.Count; round++)
+            ExcelFile infoFile = new ExcelFile(infoPath);
+            ExcelFile logosFile = new ExcelFile(logosPath);
+
+            List<Game> games = new List<Game>();
+            Dictionary<string, string> logos = new Dictionary<string, string>();
+            
+            ExcelWorksheet logosWorksheet = logosFile.GetPackage().Workbook.Worksheets[0];
+            int logosRows = logosWorksheet.Dimension.Rows;
+
+            for (int i = 1; i <= logosRows; i++)
             {
-                ExcelWorksheet worksheet = package.Workbook.Worksheets[round];
+                string team = logosWorksheet.Cells[i, 1].Value.ToString();
+                string logo = logosWorksheet.Cells[i, 3].Value.ToString();
+                logos.Add(team.Trim(), logo.Trim());
+            }
+
+            //Info Excel
+            for (int week = 0; week < infoFile.GetPackage().Workbook.Worksheets.Count; week++)
+            {
+                ExcelWorksheet worksheet = infoFile.GetPackage().Workbook.Worksheets[week];
                 int rows = worksheet.Dimension.Rows;
                 for (int i = 1; i <= rows; i++)
                 {
@@ -32,16 +45,16 @@ namespace ExcelToJSON
                     long dateNum = long.Parse(worksheet.Cells[i, 2].Value.ToString());
                     string result = DateTime.FromOADate(dateNum).ToString("yyyy-MM-dd");
                     string winner = worksheet.Cells[i, 3].Value.ToString();
-                    string output = "";
+                    string round = "";
 
                     TeamsNames teams = new TeamsNames(teamsString);
                     teams.SplitTeams();
-                    Team teamA = new Team(teams.teamA, "");
+                    Team teamA = new Team(teams.teamA, logos[teams.teamA]);
                     Team teamB = new Team("", "");
 
                     if (teams.teamB.Contains("("))
                     {
-                        output = teams.teamB.Split('(', ')')[1];
+                        round = teams.teamB.Split('(', ')')[1];
                         teamB.name = teams.teamB.Split('(')[0].Trim();
                     }
                     else
@@ -49,8 +62,9 @@ namespace ExcelToJSON
                         teamB.name = teams.teamB;
                     }
 
+                    teamB.logo = logos[teamB.name.Trim()];
                     Teams teamsObject = new Teams(teamA, teamB);
-                    Game game = new Game(result, winner, teamsObject, output);
+                    Game game = new Game(result, winner, teamsObject, round);
 
                     games.Add(game);
                 }
@@ -59,6 +73,7 @@ namespace ExcelToJSON
             //replace with you target file
             System.IO.File.WriteAllText(@"C:\Users\jawad\Desktop\tar.json", json);
 
+            Console.WriteLine("Done!");
         }
     }
 

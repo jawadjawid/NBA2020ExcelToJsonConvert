@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jawad\\source\\repos\\ExcelToJSON\\ExcelToJSON\\ExcelToJSON.csproj": {}
+    "C:\\www\\NBA2020ExcelToJsonConvert\\ExcelToJSON\\ExcelToJSON\\ExcelToJSON.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jawad\\source\\repos\\ExcelToJSON\\ExcelToJSON\\ExcelToJSON.csproj": {
+    "C:\\www\\NBA2020ExcelToJsonConvert\\ExcelToJSON\\ExcelToJSON\\ExcelToJSON.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jawad\\source\\repos\\ExcelToJSON\\ExcelToJSON\\ExcelToJSON.csproj",
+        "projectUniqueName": "C:\\www\\NBA2020ExcelToJsonConvert\\ExcelToJSON\\ExcelToJSON\\ExcelToJSON.csproj",
         "projectName": "ExcelToJSON",
-        "projectPath": "C:\\Users\\jawad\\source\\repos\\ExcelToJSON\\ExcelToJSON\\ExcelToJSON.csproj",
+        "projectPath": "C:\\www\\NBA2020ExcelToJsonConvert\\ExcelToJSON\\ExcelToJSON\\ExcelToJSON.csproj",
         "packagesPath": "C:\\Users\\jawad\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jawad\\source\\repos\\ExcelToJSON\\ExcelToJSON\\obj\\",
+        "outputPath": "C:\\www\\NBA2020ExcelToJsonConvert\\ExcelToJSON\\ExcelToJSON\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jawad\\AppData\\Roaming\\NuGet\\NuGet.Config",
